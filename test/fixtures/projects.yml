@@ -1,0 +1,47 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  status: MyString
+  summary: MyString
+  theme_str_id: MyString
+  title: MyString
+  image_url: MyString
+  project_link: MyString
+  country: MyString
+  funding: 1.5
+  goal: 1.5
+  latitude: 1.5
+  longitude: 1.5
+  need: MyText
+  long_term_impact: MyText
+  activities: MyText
+  donation_descriptions: MyText
+  theme_id: 1
+  gg_project_id: 1
+  gg_organization_id: 1
+  country_id: 1
+  organization_id: 1
+  donation_amounts: 1
+
+two:
+  status: MyString
+  summary: MyString
+  theme_str_id: MyString
+  title: MyString
+  image_url: MyString
+  project_link: MyString
+  country: MyString
+  funding: 1.5
+  goal: 1.5
+  latitude: 1.5
+  longitude: 1.5
+  need: MyText
+  long_term_impact: MyText
+  activities: MyText
+  donation_descriptions: MyText
+  theme_id: 1
+  gg_project_id: 1
+  gg_organization_id: 1
+  country_id: 1
+  organization_id: 1
+  donation_amounts: 1

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  city: MyString
+  country: MyString
+  url: MyString
+  name: MyString
+  mission: MyText
+  Gg_organization_id: 1
+
+two:
+  city: MyString
+  country: MyString
+  url: MyString
+  name: MyString
+  mission: MyText
+  Gg_organization_id: 1

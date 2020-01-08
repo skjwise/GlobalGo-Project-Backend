@@ -1,0 +1,2 @@
+class UserStarredProjectsController < ApplicationController
+end
