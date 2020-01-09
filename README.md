@@ -1,24 +1,13 @@
-# README
+# GlobalGo-Project-Backend
+Mod 5 Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Project Overview:
+- An interactive website where users can explore and donate to nonprofit projects from around the world.
 
-Things you may want to cover:
+- Users create a profile where they can specify their top-3 themes (Education, Children, Environment etc) and a default country.
 
-* Ruby version
+- The map page is where a world map is displayed where the users can hover and discover how many available projects they can donate to in every country.
 
-* System dependencies
+- They can also filter by any of the project themes to visualize which countries have the highest concentration of projects.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- The user can click on a country to view summaries of all the projects and can favourite individual projects or donate to them.
