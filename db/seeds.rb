@@ -8,6 +8,7 @@
 
 
 User.delete_all
+Theme.delete_all
 
 user = User.create(
     first_name: "Sarah",
@@ -15,4 +16,14 @@ user = User.create(
     username: "sarah",
     email: "sarahwise.305@gmail.com",
     password_digest: "123"   
+)
+
+theme1 = Theme.create(
+    name: "Eduction"
+)
+theme2 = Theme.create(
+    name: "Animals"
+)
+theme3 = Theme.create(
+    name:"Health"
 )
