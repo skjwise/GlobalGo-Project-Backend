@@ -33,7 +33,7 @@ module GlobalgoProjectBackend
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.middleware.use Rack::MethodOverride
-    config.middleware.user ActionDispatch::Flash
+    # config.middleware.use Rack::MethodOverride
+    # config.middleware.user ActionDispatch::Flash
   end
 end

@@ -1,4 +1,4 @@
-class UserStarredProjectsController < ApplicationController
+class Api::V1::UserStarredProjectsController < ApplicationController
     def index
         allStars = UserStarredProject.all
         render json: allStars

@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class Api::V1::ProjectsController < ApplicationController
     def index
         projects = Project.all
         render json: projects
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
     options_arr = []
     project = Project.find(project_id)
     project.donation_amounts.length.times do |i|
-        options_arr.push({"amount": @project.donation_amounts[i], "description": @project.donation_descriptions[i]})
+        options_arr.push({"amount": project.donation_amounts[i], "description": project.donation_descriptions[i]})
     end
     # @donationOptions = ProjectDonationOption.where(project_id: project_id)
     render json: options_arr
@@ -70,20 +70,20 @@ class ProjectsController < ApplicationController
             name: project["organization"]["name"],
             url: project["organization"]["url"]
             )
-            project.organization = @organization
+            project.organization = organization
             organization.save
         else
             organization = Organization.find_by(Gg_organization_id: project["organization"]["id"])
-            project.organization = @organization
+            project.organization = organization
         end
         theme = Theme.find_or_create_by(name: project["themeName"])
         theme.save
-        project.theme = @theme
+        project.theme = theme
         country = Country.find_by(name: project["country"])
         country.save
-        project.country = @country
+        project.country = country
         project.save
-        projects << @project
+        projects << project
 
         if project["donationOptions"]
             project["donationOptions"]["donationOption"].each do |option|
@@ -96,6 +96,6 @@ class ProjectsController < ApplicationController
         end
         end
     end
-    render json: {"has_next": json["projects"]["hasNext"], "nextProjectId": json["projects"]["nextProjectId"], "projects": @projects}
+    render json: {"has_next": json["projects"]["hasNext"], "nextProjectId": json["projects"]["nextProjectId"], "projects": projects}
     end
 end

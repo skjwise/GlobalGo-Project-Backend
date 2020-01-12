@@ -26,7 +26,7 @@ class Project < ApplicationRecord
     
     
       def self.fetch(params)
-        #Add a check to see if Project count < 8000. Added bc of Heroku 10k row limit
+        #Add a check to see if Project count < 8000.
         if (Project.all.count + Organization.all.count) < 8000
           projects = []
           json = self.queryActiveProjects(params)
