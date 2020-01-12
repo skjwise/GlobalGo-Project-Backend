@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
     def index
-        @projects = Project.all
-        render json: @projects
+        projects = Project.all
+        render json: projects
     end
     
     def find_last_project
@@ -19,18 +19,18 @@ class ProjectsController < ApplicationController
     
     def find_options
     project_id = params[:project_id]
-    @options_arr = []
-    @project = Project.find(project_id)
-    @project.donation_amounts.length.times do |i|
-        @options_arr.push({"amount": @project.donation_amounts[i], "description": @project.donation_descriptions[i]})
+    options_arr = []
+    project = Project.find(project_id)
+    project.donation_amounts.length.times do |i|
+        options_arr.push({"amount": @project.donation_amounts[i], "description": @project.donation_descriptions[i]})
     end
     # @donationOptions = ProjectDonationOption.where(project_id: project_id)
-    render json: @options_arr
+    render json: options_arr
     end
     
     def fetch
     #Need to pass in param of nextID into queryActiveProjects
-    @projects = []
+    projects = []
     json = Project.queryActiveProjects(params)
     NormalizeCountry.to = :alpha3
 
@@ -41,7 +41,7 @@ class ProjectsController < ApplicationController
                 project["organization"]["themes"] &&
                 project["organization"]["countries"])
 
-        @project = Project.find_or_create_by(
+        project = Project.find_or_create_by(
             # country: project["country"],
             funding: project["funding"],
             goal: project["goal"],
@@ -62,7 +62,7 @@ class ProjectsController < ApplicationController
 
         if (!Organization.find_by(Gg_organization_id: project["organization"]["id"]))
             #find or create organization here
-            @organization = Organization.create(
+            organization = Organization.create(
             Gg_organization_id: project["organization"]["id"],
             city: project["organization"]["city"],
             country: project["organization"]["country"],
@@ -70,20 +70,20 @@ class ProjectsController < ApplicationController
             name: project["organization"]["name"],
             url: project["organization"]["url"]
             )
-            @project.organization = @organization
-            @organization.save
+            project.organization = @organization
+            organization.save
         else
-            @organization = Organization.find_by(Gg_organization_id: project["organization"]["id"])
-            @project.organization = @organization
+            organization = Organization.find_by(Gg_organization_id: project["organization"]["id"])
+            project.organization = @organization
         end
-        @theme = Theme.find_or_create_by(name: project["themeName"])
-        @theme.save
-        @project.theme = @theme
-        @country = Country.find_by(name: project["country"])
-        @country.save
-        @project.country = @country
-        @project.save
-        @projects << @project
+        theme = Theme.find_or_create_by(name: project["themeName"])
+        theme.save
+        project.theme = @theme
+        country = Country.find_by(name: project["country"])
+        country.save
+        project.country = @country
+        project.save
+        projects << @project
 
         if project["donationOptions"]
             project["donationOptions"]["donationOption"].each do |option|

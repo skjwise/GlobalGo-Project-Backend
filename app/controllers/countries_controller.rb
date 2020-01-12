@@ -1,13 +1,13 @@
 class CountriesController < ApplicationController
     def index
-        @countries = Country.all
-        render json: @countries
+        countries = Country.all
+        render json: countries
     end
     
     def get_project_count
-    @countries = Country.all
+    countries = Country.all
     country_project_counts = []
-    @countries.each do |country|
+    countries.each do |country|
         project_count = country.projects.count
         country_project_counts.push([country[:iso3166CountryCode], project_count])
     end
@@ -15,14 +15,14 @@ class CountriesController < ApplicationController
     end
     
     def get_project_theme_count
-    @countries = Country.all
+    countries = Country.all
     theme_name_array = params[:themes]
     theme_array = self.get_theme_ids(theme_name_array)
     # theme_array = theme_name_array.map do |theme|
     #   Theme.find_by(name: theme).id
     # end
     country_project_counts = []
-    @countries.each do |country|
+    countries.each do |country|
         project_count = country.projects.where(theme_id: theme_array).count
         country_project_counts.push([country[:iso3166CountryCode], project_count])
     end
@@ -62,8 +62,8 @@ class CountriesController < ApplicationController
     NormalizeCountry.to = :alpha3
     json["regions"]["region"].each do |region|
         region["countries"]["country"].each do |country|
-        @country = Country.find_or_create_by(name: country["name"], iso3166CountryCode: NormalizeCountry.convert(country["iso3166CountryCode"]))
-        @country.save
+        country = Country.find_or_create_by(name: country["name"], iso3166CountryCode: NormalizeCountry.convert(country["iso3166CountryCode"]))
+        country.save
         end
     end
     render json: Country.all
