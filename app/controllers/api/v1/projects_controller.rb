@@ -24,7 +24,7 @@ class Api::V1::ProjectsController < ApplicationController
     project.donation_amounts.length.times do |i|
         options_arr.push({"amount": project.donation_amounts[i], "description": project.donation_descriptions[i]})
     end
-    # @donationOptions = ProjectDonationOption.where(project_id: project_id)
+    # donationOptions = ProjectDonationOption.where(project_id: project_id)
     render json: options_arr
     end
     
@@ -85,15 +85,15 @@ class Api::V1::ProjectsController < ApplicationController
         project.save
         projects << project
 
-        if project["donationOptions"]
-            project["donationOptions"]["donationOption"].each do |option|
+        # if project["donationOptions"]
+        #     project["donationOptions"]["donationOption"].each do |option|
             #   ProjectDonationOption.find_or_create_by(
-            #     project_id: @project.id,
+            #     project_id: project.id,
             #     amount: option["amount"],
             #     description: option["description"]
             # )
-            end
-        end
+        #     end
+        # end
         end
     end
     render json: {"has_next": json["projects"]["hasNext"], "nextProjectId": json["projects"]["nextProjectId"], "projects": projects}

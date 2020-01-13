@@ -1,43 +1,36 @@
-require 'dotenv/load'
-
 class ApplicationController < ActionController::API
-    # before_action :authorized
+    before_action :set_current_user
 
-  def encode_token(payload)
-    # don't forget to hide your secret in an environment variable
-    secret = ENV['SECRET']
-    JWT.encode(payload, secret)
-  end
-
-  def auth_header
-      request.headers['Authorization']
-  end
-
-  def decoded_token
-    secret = ENV['SECRET']
-    if auth_header
-      token = auth_header.split(' ')[1]
-        # headers: { 'Authorization': 'Bearer <token>' }
-      begin
-        JWT.decode(token, secret, true, algorithm: 'HS256')
-      rescue JWT::DecodeError
-        nil
-      end
+    def issue_token(payload)
+        JWT.encode(payload, ENV['RAILS_SECRET'])
     end
-  end
 
-  def current_user
-    if decoded_token
-      user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
+    def decode_token(token)
+        JWT.decode(token, ENV['RAILS_SECRET'])[0]
     end
-  end
 
-  def logged_in?
-    !!current_user
-  end
+    def get_token
+        request.headers["Authorization"] || request.headers["Authorisation"]
+    end
 
-  def authorized
-    render json: {message: 'Please log in' }, status: :unauthorized unless logged_in?
-  end
+    def set_current_user
+        token = get_token
+        if token
+            decoded_token = decode_token(token)
+            @current_user = User.find(decoded_token["user_id"])
+        else
+            @current_user = nil
+        end
+    end
+
+    def logged_in
+        !!@current_user
+    end
+
+    def protected_action
+        if !logged_in?
+            render json: {errors: ['you must be logged in']}, status: :unauthorized
+        end
+    end
+
 end

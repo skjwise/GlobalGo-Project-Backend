@@ -18,9 +18,6 @@ class Api::V1::CountriesController < ApplicationController
     countries = Country.all
     theme_name_array = params[:themes]
     theme_array = self.get_theme_ids(theme_name_array)
-    # theme_array = theme_name_array.map do |theme|
-    #   Theme.find_by(name: theme).id
-    # end
     country_project_counts = []
     countries.each do |country|
         project_count = country.projects.where(theme_id: theme_array).count
@@ -48,9 +45,6 @@ class Api::V1::CountriesController < ApplicationController
     
     def get_theme_projects
     theme_name_array = params[:themes]
-    # theme_array = theme_name_array.map do |theme|
-    #   Theme.find_by(name: theme).id
-    # end
     theme_array = self.get_theme_ids(theme_name_array)
     country = Country.find_by(iso3166CountryCode: params["countryCode"])
     country_projects = country.projects.where(theme_id: theme_array)
