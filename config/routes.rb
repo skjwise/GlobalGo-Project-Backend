@@ -10,8 +10,9 @@ Rails.application.routes.draw do
       resources :countries, only: [:create, :index]
       resources :project_donation_options, only: [:index]
 
-      post '/login', to: 'auth#create'
+      post '/login', to: 'users#login'
       get '/profile', to: 'users#profile'
+      get '/validate_user', to: 'users#validate_user'
       post '/fetch_projects', to: 'projects#fetch'
 
     end

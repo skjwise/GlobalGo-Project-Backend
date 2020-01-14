@@ -71,6 +71,7 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def login
+        # byebug
         user = User.find_by(username: user_login_params[:username])
         if user && user.authenticate(user_login_params[:password])
             render json: { user: UserSerializer.new(user), token: issue_token(user_id: user.id) }, status: :accepted
@@ -89,13 +90,16 @@ class Api::V1::UsersController < ApplicationController
     
     private
 
+    # def user_params
+    # params.permit(:id, :username, :password_digest, :first_name, :last_name,
+    #     :email, :default_country, :theme1, :theme2, :theme3)
+    # end
     def user_params
-    params.permit(:id, :username, :password_digest, :first_name, :last_name,
-        :email, :default_country, :theme1, :theme2, :theme3)
+        params.permit(:id, :username, :password, :first_name, :last_name, :email)
     end
 
     def user_login_params
-        params.require(:user).permit(:username, :password_digest)
+        params.require(:user).permit(:username, :password)
     end
    
 end

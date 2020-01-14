@@ -15,7 +15,7 @@ user = User.create(
     last_name: "Wise",
     username: "sarah",
     email: "sarahwise.305@gmail.com",
-    password_digest: "123"   
+    password: "123"   
 )
 
 # theme1 = Theme.create(name: "Education")
