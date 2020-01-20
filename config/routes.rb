@@ -14,7 +14,11 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
       get '/validate_user', to: 'users#validate_user'
       post '/fetch_projects', to: 'projects#fetch'
+      post '/charge', to: 'projects#charge'
 
     end
   end
+
+  # post '/charge', to: 'projects#charge'
+
 end

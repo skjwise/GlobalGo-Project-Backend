@@ -30,6 +30,8 @@ gem 'dotenv-rails'
 gem 'rest-client'
 gem 'normalize_country'
 
+gem 'stripe'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
