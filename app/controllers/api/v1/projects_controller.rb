@@ -1,5 +1,6 @@
 require 'stripe'
-Stripe.api_key = ENV["STRIPE_API_KEY"]
+# Stripe.api_key = ENV["STRIPE_API_KEY"]
+Stripe.api_key='sk_test_hdQvEcCMfpprldgxb30Pf1UK00USNntLUk'
 
 class Api::V1::ProjectsController < ApplicationController
     def index
@@ -8,11 +9,10 @@ class Api::V1::ProjectsController < ApplicationController
     end
 
     def charge
-        byebug
         token = params[:token]
         charge = Stripe::Charge.create(
             {
-                amount: 1,
+                amount: params[:amount],
                 currency: 'gbp',
                 description: 'donation',
                 receipt_email: 'test@email.com',
@@ -21,19 +21,12 @@ class Api::V1::ProjectsController < ApplicationController
         )
     end
     
-    def find_last_project
-    max_id = Project.where(status: "active").maximum('gg_project_id')
-    render json: max_id
-    end
-    
-    def delete_all
-    #Delete all projects, user_starred_projects and donation options
-    Project.delete_all
-    ProjectDonationOption.delete_all
-    UserStarredProject.delete_all
-    render json: { message: 'Deleted all projects, donation options, and starred projects' }, status: :accepted
-    end
-    
-    
+    # def delete_all
+    # #Delete all projects, user_starred_projects and donation options
+    # Project.delete_all
+    # ProjectDonationOption.delete_all
+    # UserStarredProject.delete_all
+    # render json: { message: 'Deleted all projects, donation options, and starred projects' }, status: :accepted
+    # end
 
 end
